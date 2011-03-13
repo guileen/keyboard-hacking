@@ -1,0 +1,49 @@
+Guilin hacking keyboard
+
+build:
+python genxkb.py xmodmap/glhk_xmodmap.txt > xmodmap/glhk_xmodmap
+
+installation:
+cp xmodmap/glhk_xmodmap ~/.glhk_xmodmap
+xmodmap ~/.glhk_xmodmap
+
+template:
+ genxkb.py will replace $(char) -> keysym of char, $c(char) to keycode of char, but the keycode is deprecate.
+for example: if you want swap : with ;, swap ' with " you can use below:
+keysym $(;) = $(:) $(;)
+keysym $(') = $(") $(')
+  output:
+keysym semicolon = colon semicolon
+keysym apostrophe = quotedbl apostrophe
+
+ to output $(c) use $\(c) , to output $map$ use \$map\$
+
+to remap whole characters layout of qwerty,use $map$
+  example:
+1. the basic qwerty layout
+$map$
+`~ 1! 2@ 3# 4$ 5% 6^ 7& 8* 9( 0) -_ =+
+q  w  e  r  t  y  u  i  o  p  [{ ]} \|
+a  s  d  f  g  h  j  k  l  ;: '"
+z  x  c  v  b  n  m  ,< .> /?
+$map$
+
+2. the glhk layout 
+$map$
+5~ 3! 1@ 0$ 29 48 67 #` *^ y  w  x  q
+(\ c  d  .< ,> k  =+ u  l  )| -& _% z
+s  e  r  a  g  h  t  i  o  n  "'
+;: {] }] p  j  f  m  v  b  /?
+$map$
+
+note this map is base on qwerty layout, if you current layout is not qwerty you can't get the layout what you want.
+
+
+tools:
+
+1. genxkb.py generate xmodmap file by a template file.
+see xmodmap/glhk.txt.
+usage: python genxkb.py templatefile
+
+2. keystat.py  statistic letters in dir. output top 200 sequence.
+
